@@ -6,70 +6,70 @@ int main(){
     while(t--){
         string s;
         cin>>s;
-        string ac=s;
-        vector<int> zeroes;
-        vector<int> ones;
-        int ans=0;
+        int zeroes=0,ones=0;
         for(int i=0;i<s.length();i++){
             if(s[i]=='0'){
-                zeroes.push_back(i);
+                zeroes++;
             }
             else{
-                ones.push_back(i);
+                ones++;
             }
         }
-        if(ones.size()==zeroes.size()){
+        if(zeroes==ones){
             cout<<0<<endl;
-            continue;
         }
-        else if(ones.size()==0 || (zeroes.size()==0)){
-            cout<<s.length()<<endl;
+        else if(zeroes==0 || ones==0){
+            cout<<(s.length())<<endl;
         }
         else{
-            if(ones.size()>zeroes.size()){
-                vector<int> deleted;
-                // cout<<"Hey"<<endl;
-                for(int i=0;i<zeroes.size();i++){
-                    s[ones[i]]='0';
-                    s[zeroes[i]]='1';
-                }
-                for(int i=0;i<ac.length();i++){
-                    if(s[i]==ac[i]){
-                        deleted.push_back(i);
-                        ans++;
-                    }
-                }
-                for(int i=deleted.size()-1;i>=0;i--){
-                    int j=deleted[i];
-                    int n=s.length();
-                   while((j+1<n)&&(ac[j]==ac[j+1])){
-                        ans++;
-                        j++;
-                   }
-                   if(j==(ac.length())){
-                    continue;
-                   }
-                   else{
-                    if(ac[i]='0'){
-                        ac[i]='1';
+            vector<int> ofz;
+            vector<int> ofo;
+            string s_n=s;
+            if(ones>zeroes){
+                for(int i=0;i<s.length();i++){
+                    if(s[i]=='0'){
+                        ofz.push_back(i);
+                        // cout<<i<<endl;
                     }
                     else{
-                        ac[i]='0';
+                        ofo.push_back(i);
                     }
-                   }
+                }
+                for(int i=0;i<(ofz.size());i++){
+                    s_n[ofz[i]]='1';
+                    s_n[ofo[i]]='0';
+                }
+                int ans=0;
+                for(int i=(s_n.length()-1);i>=0;i--){
+                    if(s_n[i]=='0'){
+                        break;
+                    }
+                    // cout<<"hey"<<endl;
+                    ans++;
                 }
                 cout<<ans<<endl;
-            
             }
             else{
-                for(int i=0;i<ones.size();i++){
-                    s[zeroes[i]]='0';
-                    s[ones[i]]='1';
-                }
-                for(int i=0;i<ac.length();i++){
-                    if(s[i]!=ac[i]){
-                        ans++;
+                for(int i=0;i<s.length();i++){
+                    if(s[i]=='0'){
+                        ofz.push_back(i);
+                        // cout<<i<<endl;
                     }
+                    else{
+                        ofo.push_back(i);
+                    }
+                }
+                for(int i=0;i<(ofo.size());i++){
+                    s_n[ofz[i]]='1';
+                    s_n[ofo[i]]='0';
+                }
+                int ans=0;
+                for(int i=(s_n.length()-1);i>=0;i--){
+                    if(s_n[i]=='1'){
+                        break;
+                    }
+                    // cout<<"hey"<<endl;
+                    ans++;
                 }
                 cout<<ans<<endl;
             }
