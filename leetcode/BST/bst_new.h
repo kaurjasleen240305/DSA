@@ -92,4 +92,7 @@ class BST{
             }
         }
     }
+    void insertDuplicateNode(BinaryTreeNode<int>* root){
+        
+    }
 };
