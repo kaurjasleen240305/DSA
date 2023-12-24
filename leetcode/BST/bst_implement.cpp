@@ -116,7 +116,7 @@ bool is_bt_bst(BinaryTreeNode<int>* root){
 BST_min_Max is_bt_BST(BinaryTreeNode<int>* root){
     if(root==nullptr){
         BST_min_Max output;
-        output.isBST=false;
+        output.isBST=true;
         output.min=INT_MAX;
         output.max=INT_MIN;
         return output;
