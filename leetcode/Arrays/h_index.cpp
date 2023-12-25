@@ -13,5 +13,4 @@ int hIndex(vector<int>& citations) {
             }
         }
         return -1;
-
     }

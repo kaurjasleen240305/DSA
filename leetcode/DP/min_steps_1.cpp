@@ -1,5 +1,3 @@
-#include<bits/stdc++.h>
-using namespace std;
 
 //BRUTE FORCE 
 int min_steps_1(int n){
@@ -78,7 +76,6 @@ int main(){
         position++;
         ans++;
     }
-    
     }
     }
     cout<<ans<<endl;
