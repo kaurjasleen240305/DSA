@@ -30,7 +30,49 @@ void BFS(int** edges,int n){
             printBFS(edges,n,i,visited);
         }
     }
-    delete [] visited;
+    delete visited;
+}
+
+
+
+vector<int>* getPath(int* edges,int n,int sv,int ev){
+    queue<int> bfsQ;
+    bool* visited=new bool[n];
+    for(int i=0;i<n;i++){
+        visited[i]=false;
+    }
+    bfsQ.push(sv);
+    visited[sv]=true;
+    bool done=false;
+    map<int,int> mp;
+    while(!bfsQ.empty()){
+        int front=bfsQ.front();
+        bfsQ.pop();
+        for(int i=0;i<n;i++){
+            if(edges[front][i] && !visited[i]){
+                mp[i]=front;
+                bfsQ.push(i);
+                visited[i]=true;
+                if(i==ev){
+                    done=true;
+                    break;
+                }
+            }
+        }
+    }
+    if(!done){
+        return null;
+    }
+    else{
+        vector<int>* output=new vector<int>();
+        int current=ev;
+        output->push_back(ev);
+        while(current!=sv){
+            current=mp[current];
+            output->push_back(current);
+        }
+        return output;
+    }
 }
 
 int main(){

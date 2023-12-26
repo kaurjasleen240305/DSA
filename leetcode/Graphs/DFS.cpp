@@ -31,6 +31,51 @@ void DFS(int** edges,int n){
     delete [] visited;
 }
 
+//HAS PATH
+bool haspath(int** edges,int n,int sv,int ev,bool* visited){
+    visited[sv]=true;
+    for(int i=0;i<n;i++){
+        if(edges[sv][i]==1){
+            if(i==sv){
+                continue;
+            }
+            if(visited[i]==true){
+                continue;
+            }
+            if(i==ev){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+vector<int>* getPathHelper(int** edges,int n,int sv,int ev,bool* visited){
+    if(sv==ev){
+        vector<int>* output=new vector<int>();
+        output->push_back(sv);
+        return output;
+    }
+    visited[sv]=true;
+    for(int i=0;i<n;i++){
+        if(edges[sv][i] && !visited[i]){
+            vector<int>* smalloutput=getPathHelper(edges,n,i,ev,visited);
+            if(smaloutput!=NULL){
+                smalloutput->push_back(sv);
+                return smalloutput;
+            }
+        }
+    }
+    return null;
+}
+vector<int>* getPath(int** edges,int n,int sv,int ev){
+   bool* visited=new bool[n];
+   for(int i=0;i<n;i++){
+    visited[i]=false;
+   }
+   vector<int>* output=getPathHelper(edges,n,sv,ev,visited);
+   delete[] visited;
+}
 
 int main(){
    int n,e;
@@ -52,5 +97,8 @@ int main(){
    for(int i=0;i<n;i++){
     visited[i]=false;
    }
-   DFS(edges,n);
+   int sv,ev;
+   cout<<"GIVE ST AND EV"<<endl;
+   cin>>sv>>ev;
+   cout<<haspath(edges,n,sv,ev,visited);
 }
