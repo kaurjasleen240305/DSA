@@ -74,6 +74,59 @@ vector<vector<int>> threeSum(vector<int> arr){
     return ans ;
 }
 
+int minSubArrayLen(int target, vector<int>& nums) {
+       int ans=INT_MAX;
+       int left_ptr=0;
+       int right_ptr=0;
+       int sum_arr[nums.size()];
+       sum_arr[0]=nums[0];
+       for(int i=1;i<nums.size();i++){
+           sum_arr[i]=sum_arr[i-1]+nums[i];
+       }
+       while(left_ptr<=right_ptr && right_ptr<nums.size() && left_ptr<=nums.size()){
+          int sum;
+          if(left_ptr==0 || right_ptr==0){
+              sum=sum_arr[right_ptr];
+          }
+          else{
+              sum=sum_arr[right_ptr]-sum_arr[left_ptr-1];
+          }
+          if(sum>=target){
+              ans=min(ans,right_ptr-left_ptr+1);
+              left_ptr++;
+          }
+          else{
+              right_ptr++;
+          }
+       }
+       if(ans==INT_MAX){
+           return 0;
+       }
+       else{
+           return ans;
+       }
+    }
+
+int lengthOfLongestSubstring(string s) {
+        int n=s.length();
+        int lp=0,rp=0;
+        map<char,bool> mp;
+        int ans=INT_MIN;
+        while(lp<=rp && lp<n && rp<n){
+            if(mp[s[rp]]==false){
+               ans=max(ans,rp-lp+1);
+               mp[s[rp]]=true;
+               rp++;
+            }
+            else{
+                ans=max(ans,rp-lp+1);
+                mp[s[lp]]=false;
+                lp++;
+            }
+        }
+        return ans-1;
+    }
+
 int main(){
     int n;
     cin>>n;
@@ -83,11 +136,5 @@ int main(){
         cin>>x;
         a.push_back(x);
     }
-    vector<vector<int>> v=threeSum(a);
-    for(auto i:v){
-        for(int j=0;j<i.size();j++){
-            cout<<i[j]<<" ";
-        }
-        cout<<endl;
-    }
+    cout<<minSubArrayLen(12,a)<<endl;
 }
