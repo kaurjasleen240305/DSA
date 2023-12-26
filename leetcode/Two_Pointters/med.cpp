@@ -47,14 +47,47 @@ int maxArea(vector<int>& height) {
 
     }
 
+vector<vector<int>> threeSum(vector<int> arr){
+    vector<vector<int>> ans;
+    sort(arr.begin(),arr.end());
+    for(int i=0;i<arr.size();i++){
+        int st=i+1;
+        int end=arr.size()-1;
+        int need=0-arr[i];
+        while(st<end){
+            if(arr[st]+arr[end]>need){
+                end=end-1;
+            }
+            else if(arr[st]+arr[end]<need){
+                st=st+1;
+            }
+            else{
+                vector<int> x;
+                x.push_back(arr[i]);
+                x.push_back(arr[st]);
+                x.push_back(arr[end]);
+                ans.push_back(x);
+                break;
+            }
+        }
+    }
+    return ans ;
+}
+
 int main(){
     int n;
     cin>>n;
-    vector<int> v;
+    vector<int> a;
     for(int i=0;i<n;i++){
         int x;
         cin>>x;
-        v.push_back(x);
+        a.push_back(x);
     }
-    cout<<maxArea(v)<<endl;
+    vector<vector<int>> v=threeSum(a);
+    for(auto i:v){
+        for(int j=0;j<i.size();j++){
+            cout<<i[j]<<" ";
+        }
+        cout<<endl;
+    }
 }
